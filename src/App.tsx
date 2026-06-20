@@ -923,77 +923,77 @@ export default function App() {
 
         {/* TAB 3: RACE / KAUM ANALYSIS */}
         {(activeTab === "kaum" || window.matchMedia("print").matches) && (
-          <section className="space-y-4 print:break-before-page pt-4">
+          <section className="space-y-4 print:space-y-1.5 print:break-before-page pt-4 print:pt-0">
             {/* PRINT BRANDING BANNER (Only visible in print media at the top of Bahagian 3) */}
-            <div className="hidden print:block border-b border-slate-500 pb-2 mb-4">
-              <div className="flex flex-row items-center gap-4">
+            <div className="hidden print:block border-b border-slate-500 pb-1 mb-2">
+              <div className="flex flex-row items-center gap-3">
                 {schoolLogo && (
                   <img 
                     id="school-print-logo-3"
                     src={schoolLogo} 
                     alt="Logo Sekolah" 
-                    className="w-11 h-11 object-contain flex-shrink-0"
+                    className="w-9 h-9 object-contain flex-shrink-0"
                     referrerPolicy="no-referrer"
                   />
                 )}
                 <div className="flex-1 text-center">
-                  <h1 className="text-sm font-black tracking-wide text-black uppercase">
+                  <h1 className="text-xs font-black tracking-wide text-black uppercase">
                     LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
                   </h1>
-                  <p className="text-[9px] text-slate-800 font-bold uppercase mt-0.5">
+                  <p className="text-[8px] text-slate-800 font-bold uppercase mt-0.5">
                     SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
                   </p>
                 </div>
-                {schoolLogo && <div className="w-11" /> /* balances the logo offset to keep title perfectly centered */}
+                {schoolLogo && <div className="w-9" /> /* balances the logo offset to keep title perfectly centered */}
               </div>
               
-              <div className="flex justify-between items-center text-[8px] text-slate-600 mt-2 border-t border-slate-200/60 pt-1.5 px-0.5">
+              <div className="flex justify-between items-center text-[7px] text-slate-600 mt-1 border-t border-slate-200/60 pt-1 px-0.5">
                 <span>Fail Data Rujukan: <strong className="text-slate-800">{fileName}</strong></span>
                 <span>Tarikh Ekstraksi: <strong className="text-slate-800">{fileDate}</strong></span>
               </div>
             </div>
 
-            <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-sm print:font-bold print:border-l-2 mb-2">
+            <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-xs print:font-bold print:border-l-2 mb-2 print:mb-1">
               Bahagian 3: Analisis Demografi Kaum
             </h3>
             
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden print:border-slate-300">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden print:border-none print:shadow-none print:rounded-none">
               <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-xs text-slate-800 print:text-[10px]">
+                <table className="w-full text-left border-collapse text-xs text-slate-800 print:text-[9.5px]">
                   <thead>
                     <tr className="bg-slate-800 text-white font-bold text-center border-b border-slate-705 print:bg-slate-900">
-                      <th className="py-3 px-4 text-left border-r border-slate-705 print:py-2 print:px-3">Klasifikasi Kaum (Etnik)</th>
-                      <th className="py-3 px-4 border-r border-slate-705 print:py-2 print:px-3">Lelaki (L)</th>
-                      <th className="py-3 px-4 border-r border-slate-705 print:py-2 print:px-3">Perempuan (P)</th>
-                      <th className="py-3 px-4 border-r border-slate-705 print:py-2 print:px-3">Jumlah Murid</th>
-                      <th className="py-3 px-4 print:py-2 print:px-3">Nisbah & Peratusan (%)</th>
+                      <th className="py-3 px-4 text-left border-r border-slate-705 print:py-1.5 print:px-2">Klasifikasi Kaum (Etnik)</th>
+                      <th className="py-3 px-4 border-r border-slate-705 print:py-1.5 print:px-2">Lelaki (L)</th>
+                      <th className="py-3 px-4 border-r border-slate-705 print:py-1.5 print:px-2">Perempuan (P)</th>
+                      <th className="py-3 px-4 border-r border-slate-705 print:py-1.5 print:px-2">Jumlah Murid</th>
+                      <th className="py-3 px-4 print:py-1.5 print:px-2">Nisbah & Peratusan (%)</th>
                     </tr>
                   </thead>
                   <tbody>
                     {Object.entries(summary.raceStats).map(([race, stat]: any) => (
-                      <tr key={race} className="hover:bg-slate-50 border-b border-slate-100 transition">
-                        <td className="py-3 px-4 border-r border-slate-100 font-semibold text-slate-805 flex items-center gap-2 print:py-1.5 print:px-3">
-                          <span className={`w-3 h-3 rounded-full print:w-2 print:h-2 ${
+                      <tr key={race} className="hover:bg-slate-50 border-b border-slate-100 transition print:border-slate-300">
+                        <td className="py-3 px-4 border-r border-slate-100 font-semibold text-slate-805 flex items-center gap-2 print:py-1 print:px-2">
+                          <span className={`w-3 h-3 rounded-full print:w-1.5 print:h-1.5 ${
                             race === "Melayu" ? "bg-teal-600" : 
                             race === "Cina" ? "bg-rose-500" : 
                             race === "India" ? "bg-amber-500" : "bg-indigo-505"
                           }`} />
                           {race}
                         </td>
-                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-medium text-slate-700 print:py-1.5 print:px-3">{stat.L} orang</td>
-                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-medium text-slate-700 print:py-1.5 print:px-3">{stat.P} orang</td>
-                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-bold text-slate-900 print:py-1.5 print:px-3">{stat.Total} orang</td>
-                        <td className="py-3 px-4 text-right font-mono font-semibold text-teal-700 bg-teal-50/10 print:py-1.5 print:px-3">
+                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-medium text-slate-700 print:py-1 print:px-2">{stat.L} orang</td>
+                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-medium text-slate-700 print:py-1 print:px-2">{stat.P} orang</td>
+                        <td className="py-3 px-4 border-r border-slate-100 text-center font-mono font-bold text-slate-900 print:py-1 print:px-2">{stat.Total} orang</td>
+                        <td className="py-3 px-4 text-right font-mono font-semibold text-teal-700 bg-teal-50/10 print:py-1 print:px-2">
                           {stat.Pct}% dari sekolah
                         </td>
                       </tr>
                     ))}
                     <tr className="bg-slate-900 text-white font-extrabold text-center print:bg-slate-950">
-                      <td className="py-3 px-4 text-left font-bold border-r border-slate-800 print:py-2 print:px-3">JUMLAH KESELURUHAN SEKOLAH</td>
-                      <td className="py-3 px-4 border-r border-slate-800 font-mono print:py-2 print:px-3">{summary.totalBoys} L</td>
-                      <td className="py-3 px-4 border-r border-slate-800 font-mono print:py-2 print:px-3">{summary.totalGirls} P</td>
-                      <td className="py-3 px-4 border-r border-slate-800 font-mono text-emerald-400 print:py-2 print:px-3">{summary.totalOverall} orang</td>
-                      <td className="py-3 px-4 text-right font-mono text-emerald-400 print:py-2 print:px-3">100.00%</td>
+                      <td className="py-3 px-4 text-left font-bold border-r border-slate-800 print:py-1.5 print:px-2">JUMLAH KESELURUHAN SEKOLAH</td>
+                      <td className="py-3 px-4 border-r border-slate-800 font-mono print:py-1.5 print:px-2">{summary.totalBoys} L</td>
+                      <td className="py-3 px-4 border-r border-slate-800 font-mono print:py-1.5 print:px-2">{summary.totalGirls} P</td>
+                      <td className="py-3 px-4 border-r border-slate-800 font-mono text-emerald-400 print:py-1.5 print:px-2">{summary.totalOverall} orang</td>
+                      <td className="py-3 px-4 text-right font-mono text-emerald-400 print:py-1.5 print:px-2">100.00%</td>
                     </tr>
                   </tbody>
                 </table>
