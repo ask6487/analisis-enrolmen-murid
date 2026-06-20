@@ -8,6 +8,11 @@
 
 /* Custom styles for printing */
 @media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   body {
     background-color: white !important;
     color: black !important;
@@ -34,13 +39,21 @@
   }
   
   table {
-    border-color: #000 !important;
+    border-color: #cbd5e1 !important;
     width: 100% !important;
+    font-size: 8px !important; /* Scale table text smaller for compact portrait fit */
+    line-height: 1.15 !important;
   }
   
   th, td {
-    padding: 4px !important;
-    border-color: #000 !important;
+    padding: 2.5px 1.5px !important; /* Super compact table cell padding */
+    border-color: #e2e8f0 !important; /* Slate light borders for ultra clean output */
+  }
+
+  /* Keep table borders crisp and neat */
+  tr {
+    border-bottom-width: 1px !important;
+    border-color: #e2e8f0 !important;
   }
 }
 

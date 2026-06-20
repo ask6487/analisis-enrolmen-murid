@@ -686,14 +686,14 @@ export default function App() {
 
         {/* TAB 2: CLASSES TABLE BY FORM (SMK RANTAU DETAILED LAYOUT) */}
         {(activeTab === "forms" || window.matchMedia("print").matches) && (
-          <section className="space-y-6 print:break-before-page">
+          <section className="space-y-6">
             <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-lg">
               Bahagian 2: Analisis Enrolmen Mengikut Kelas & Tingkatan
             </h3>
             
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden print:border-none print:shadow-none">
               <div className="overflow-x-auto">
-                <table className="w-full text-center border-collapse text-xs text-slate-800 print:text-[10px]">
+                <table className="w-full text-center border-collapse text-xs text-slate-800 print:text-[8px]">
                   <thead>
                     {/* Double Tier Header */}
                     <tr className="bg-slate-800 text-white font-bold border-b border-slate-700">
