@@ -416,7 +416,7 @@ export default function App() {
               className="px-3.5 py-2 text-xs font-semibold text-slate-705 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition cursor-pointer flex items-center gap-1.5 shadow-xs"
             >
               <Database className="w-3.5 h-3.5 text-teal-600" />
-              Muat Data Contoh
+              Muat Data SMK Rantau
             </button>
             
             <button
@@ -639,13 +639,13 @@ export default function App() {
 
             {/* Subtotal table as requested inside Section 1 */}
             <div className="bg-white rounded-2xl border border-slate-210 shadow-xs overflow-hidden">
-              <div className="p-4 bg-slate-50/50 border-b border-slate-105 flex items-center justify-between">
+              <div style={{ paddingTop: '18px', marginLeft: '0px', marginTop: '40px' }} className="p-4 bg-slate-50/50 border-b border-slate-105 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Database className="w-4 h-4 text-slate-600" />
                   <span className="text-xs font-bold text-slate-800">JADUAL PENYATA ENROLMEN RINGKAS</span>
                 </div>
               </div>
-              <div className="overflow-x-auto">
+              <div style={{ marginLeft: '0px', marginTop: '40px' }} className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr className="bg-slate-101 border-b border-slate-200 text-slate-505 uppercase tracking-wider font-semibold">
@@ -804,7 +804,7 @@ export default function App() {
                       // Finally the grand total block
                       rowsToRender.push(
                         <tr key="GRAND-TOTAL" className="bg-slate-900 text-white font-extrabold text-xs">
-                          <td colSpan={3} className="py-3 px-3 uppercase text-left tracking-widest pl-4">
+                          <td colSpan={3} style={{ paddingTop: '12px', marginBottom: '0px' }} className="py-3 px-3 uppercase text-left tracking-widest pl-4">
                             Jumlah Keseluruhan Sekolah
                           </td>
                           {/* Melayu */}
@@ -838,7 +838,7 @@ export default function App() {
             </div>
 
             {/* Form Descriptions (Average size, Largest and Smallest classes) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2">
               {summary.formDetails.map(f => (
                 <div key={f.name} className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between print:border-slate-300 print:break-inside-avoid">
                   <div>
