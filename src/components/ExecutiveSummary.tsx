@@ -121,26 +121,26 @@ ${imbalances.map(i => `* ${i}`).join("\n")}`;
   const renderMarkdown = (text: string) => {
     return text.split("\n").map((line, idx) => {
       let trimmed = line.trim();
-      if (!trimmed) return <div key={idx} className="h-2" />;
+      if (!trimmed) return <div key={idx} className="h-2 print:h-1" />;
 
       // Headers like ### or ##
       if (trimmed.startsWith("###")) {
         return (
-          <h4 key={idx} className="text-sm font-bold text-slate-800 mt-4 mb-2">
+          <h4 key={idx} className="text-sm font-bold text-slate-800 mt-4 mb-2 print:text-[10px] print:mt-1.5 print:mb-0.5">
             {trimmed.replace(/^###\s*/, "")}
           </h4>
         );
       }
       if (trimmed.startsWith("##")) {
         return (
-          <h3 key={idx} className="text-md font-semibold text-teal-800 mt-4 mb-2 border-b pb-1">
+          <h3 key={idx} className="text-md font-semibold text-teal-800 mt-4 mb-2 border-b pb-1 print:text-[10px] print:mt-1.5 print:mb-0.5 print:pb-0.5">
             {trimmed.replace(/^##\s*/, "")}
           </h3>
         );
       }
       if (trimmed.startsWith("#")) {
         return (
-          <h2 key={idx} className="text-lg font-bold text-slate-900 mt-5 mb-3">
+          <h2 key={idx} className="text-lg font-bold text-slate-900 mt-5 mb-3 print:text-[11px] print:mt-2 print:mb-1">
             {trimmed.replace(/^#\s*/, "")}
           </h2>
         );
@@ -150,7 +150,7 @@ ${imbalances.map(i => `* ${i}`).join("\n")}`;
       if (trimmed.startsWith("*") || trimmed.startsWith("-")) {
         const content = trimmed.replace(/^[\*\-]\s*/, "");
         return (
-          <li key={idx} className="ml-5 list-disc text-slate-650 text-sm leading-relaxed mb-1.5">
+          <li key={idx} className="ml-5 list-disc text-slate-650 text-sm leading-relaxed mb-1.5 print:text-[9.5px] print:leading-normal print:mb-0.5 print:ml-4">
             {parseBoldText(content)}
           </li>
         );
@@ -158,7 +158,7 @@ ${imbalances.map(i => `* ${i}`).join("\n")}`;
 
       // Standard paragraphs
       return (
-        <p key={idx} className="text-slate-650 text-sm leading-relaxed mb-3">
+        <p key={idx} className="text-slate-650 text-sm leading-relaxed mb-3 print:text-[9.5px] print:leading-normal print:mb-1">
           {parseBoldText(trimmed)}
         </p>
       );
@@ -176,19 +176,19 @@ ${imbalances.map(i => `* ${i}`).join("\n")}`;
   };
 
   return (
-    <div className="mt-8 space-y-6">
+    <div className="mt-8 space-y-6 print:mt-2 print:space-y-2">
       {/* Rumusan Manual Rule-Based */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm print:border-none print:shadow-none">
-        <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm print:bg-transparent print:p-0 print:border-none print:shadow-none print:mt-2">
+        <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3 print:mb-2 print:pb-1">
           <div className="flex items-center gap-3">
-            <span className="p-2 bg-slate-100 rounded-lg text-slate-700">
+            <span className="p-2 bg-slate-100 rounded-lg text-slate-700 print:hidden">
               <FileText className="w-5 h-5" />
             </span>
             <div>
-              <h3 className="text-md font-semibold text-slate-800">
+              <h3 className="text-md font-semibold text-slate-800 print:text-[11px] print:font-bold">
                 Bahagian 6: Rumusan Eksekutif Sekolah (Laporan Rasmi)
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 print:hidden">
                 Rumusan standard berpandukan data enrolmen murid yang dijana mengikut Pekeliling KPM
               </p>
             </div>

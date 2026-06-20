@@ -72,10 +72,10 @@ export default function SchoolCharts({ summary, formStats }: SchoolChartsProps) 
   });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10 print:grid-cols-2 print:gap-3.5 print:mt-1.5">
       {/* Carta Pai Kaum */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px]">
-        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-teal-500 pl-3">
+      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px] print:h-[185px] print:p-2.5 print:rounded-xl print:border-slate-300">
+        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-teal-500 pl-3 print:text-[10px] print:mb-1 print:pl-1.5 print:border-l-2">
           1. Carta Pai Komposisi Kaum
         </h3>
         <div className="flex-1 w-full min-h-0">
@@ -111,8 +111,8 @@ export default function SchoolCharts({ summary, formStats }: SchoolChartsProps) 
       </div>
 
       {/* Carta Pai Jantina */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px]">
-        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-sky-500 pl-3">
+      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px] print:h-[185px] print:p-2.5 print:rounded-xl print:border-slate-300">
+        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-sky-500 pl-3 print:text-[10px] print:mb-1 print:pl-1.5 print:border-l-2">
           2. Carta Pai Pembahagian Jantina
         </h3>
         <div className="flex-1 w-full min-h-0">
@@ -142,8 +142,8 @@ export default function SchoolCharts({ summary, formStats }: SchoolChartsProps) 
       </div>
 
       {/* Carta Pai Agama */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px]">
-        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-emerald-600 pl-3">
+      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px] print:h-[185px] print:p-2.5 print:rounded-xl print:border-slate-300">
+        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-emerald-600 pl-3 print:text-[10px] print:mb-1 print:pl-1.5 print:border-l-2">
           3. Carta Pai Kategori Agama
         </h3>
         <div className="flex-1 w-full min-h-0">
@@ -179,8 +179,8 @@ export default function SchoolCharts({ summary, formStats }: SchoolChartsProps) 
       </div>
 
       {/* Carta Bar Enrolmen Mengikut Tingkatan */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px]">
-        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-indigo-500 pl-3">
+      <div className="bg-white p-6 rounded-2xl border border-slate-150 shadow-sm flex flex-col h-[400px] print:h-[185px] print:p-2.5 print:rounded-xl print:border-slate-300">
+        <h3 className="text-md font-semibold text-slate-800 mb-4 border-l-4 border-indigo-500 pl-3 print:text-[10px] print:mb-1 print:pl-1.5 print:border-l-2">
           4. Carta Bar Enrolmen Mengikut Tingkatan
         </h3>
         <div className="flex-1 w-full min-h-0">
