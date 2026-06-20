@@ -42,6 +42,11 @@ export default function App() {
   const [schoolName, setSchoolName] = useState("SMK Rantau");
   const [schoolCode, setSchoolCode] = useState("NEE4099");
 
+  // School Profile & Logo Upload States
+  const [schoolLogo, setSchoolLogo] = useState<string | null>(null);
+  const [logoDragActive, setLogoDragActive] = useState(false);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+
   // Spreadsheet Upload & Custom Mapping States
   const [uploadedRows, setUploadedRows] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
@@ -100,6 +105,54 @@ export default function App() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       processFile(e.target.files[0]);
+    }
+  };
+
+  // Logo Drag & Drop and Upload Event Handlers
+  const handleLogoDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setLogoDragActive(true);
+    } else if (e.type === "dragleave" || e.type === "drop") {
+      setLogoDragActive(false);
+    }
+  };
+
+  const handleLogoDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLogoDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      processLogoFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      processLogoFile(e.target.files[0]);
+    }
+  };
+
+  const processLogoFile = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      alert("Sila muat naik fail imej sahaja (JPEG/PNG/SVG).");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result) {
+        setSchoolLogo(e.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeLogo = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSchoolLogo(null);
+    if (logoInputRef.current) {
+      logoInputRef.current.value = "";
     }
   };
 
@@ -267,6 +320,7 @@ export default function App() {
     setFileDate("12/06/2026");
     setSchoolName("SMK Rantau");
     setSchoolCode("NEE4099");
+    setSchoolLogo(null);
     setUploadError(null);
     alert("Data SMK Rantau (776 Murid) telah berjaya dimuatkan!");
   };
@@ -331,15 +385,27 @@ export default function App() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4.5 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="p-2.5 bg-teal-600 rounded-xl text-white shadow-md shadow-teal-600/10">
-              <School className="w-6 h-6" />
-            </div>
+            {schoolLogo ? (
+              <div className="relative group">
+                <img 
+                  id="school-header-logo"
+                  src={schoolLogo} 
+                  alt="Logo Sekolah" 
+                  className="w-12 h-12 rounded-xl object-contain border border-slate-200 bg-slate-50 p-1 shadow-xs transition-transform duration-200 hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            ) : (
+              <div className="p-2.5 bg-teal-600 rounded-xl text-white shadow-md shadow-teal-600/10">
+                <School className="w-6 h-6" />
+              </div>
+            )}
             <div>
               <h1 className="text-xl font-bold tracking-tight text-slate-900 uppercase">
                 Sistem Analisis Enrolmen Murid
               </h1>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">
-                {schoolName} • Kementerian Pendidikan Malaysia
+              <p className="text-xs text-slate-505 font-medium mt-0.5">
+                {schoolName} {schoolCode ? `(${schoolCode})` : ""} • Kementerian Pendidikan Malaysia
               </p>
             </div>
           </div>
@@ -512,17 +578,28 @@ export default function App() {
         </div>
 
         {/* PRINT BRANDING BANNER (Only visible in print media) */}
-        <div className="hidden print:block text-center border-b-2 border-slate-800 pb-4 mb-6">
-          <h1 className="text-2xl font-bold tracking-wide text-black uppercase">
-            LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
-          </h1>
-          <p className="text-sm text-slate-800 font-medium mt-1 uppercase">
-            SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
-          </p>
-          <div className="flex justify-center gap-8 text-xs text-slate-700 mt-2">
-            <span>Fail Data Rujukan: <strong>{fileName}</strong></span>
-            <span>Tarikh Ekstraksi: <strong>{fileDate}</strong></span>
-            <span>Jumlah Enrolmen: <strong>{summary.totalOverall} orang</strong></span>
+        <div className="hidden print:flex flex-row items-center justify-center gap-6 border-b-2 border-slate-800 pb-4 mb-6">
+          {schoolLogo && (
+            <img 
+              id="school-print-logo"
+              src={schoolLogo} 
+              alt="Logo Sekolah" 
+              className="w-16 h-16 object-contain"
+              referrerPolicy="no-referrer"
+            />
+          )}
+          <div className="text-center flex-1">
+            <h1 className="text-2xl font-bold tracking-wide text-black uppercase">
+              LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
+            </h1>
+            <p className="text-sm text-slate-800 font-medium mt-1 uppercase">
+              SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
+            </p>
+            <div className="flex justify-center gap-8 text-xs text-slate-700 mt-2">
+              <span>Fail Data Rujukan: <strong>{fileName}</strong></span>
+              <span>Tarikh Ekstraksi: <strong>{fileDate}</strong></span>
+              <span>Jumlah Enrolmen: <strong>{summary.totalOverall} orang</strong></span>
+            </div>
           </div>
         </div>
 
@@ -1159,33 +1236,107 @@ export default function App() {
             </div>
 
             <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 py-1 text-xs">
-              <p className="p-3 bg-indigo-50/40 rounded-xl text-indigo-805 text-[11px] leading-relaxed">
-                Heuristik sistem kami telah mendeduksi lajur secara automatik. Sila sahkan atau laraskan jika terdapat ketidakpadanan sebelum menganalisis.
-              </p>
-
-              {/* Sahkan Maklumat Sekolah */}
-              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-                <p className="font-bold text-slate-800 text-[10px] uppercase tracking-wider">Sahkan Maklumat Sekolah</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-slate-600 text-[11px]">Nama Sekolah <span className="text-rose-500">*</span></label>
-                    <input
-                      type="text"
-                      value={schoolName}
-                      onChange={(e) => setSchoolName(e.target.value)}
-                      className="text-xs bg-white border border-slate-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500 font-medium"
-                      placeholder="Contoh: SMK Rantau"
-                    />
+              {/* KAD INTERAKTIF: PROFIL & LOGO SEKOLAH (HASIL IMBASAN) */}
+              <div id="school-interactive-profile-card" className="p-4 bg-slate-50 border border-slate-205 rounded-xl space-y-4 shadow-sm relative overflow-hidden transition-all duration-200 hover:border-slate-300">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-2xl -mr-12 -mt-12 opacity-40 pointer-events-none" />
+                
+                <div className="flex items-center justify-between border-b border-slate-150 pb-2.5">
+                  <div className="flex items-center gap-1.5 font-bold text-[10px] text-indigo-700 tracking-wider">
+                    <Sparkles className="w-4 h-4 text-indigo-600" />
+                    <span>PROFIL & LOGO SEKOLAH (MAKLUMAT IMBASAN)</span>
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-slate-600 text-[11px]">Kod Sekolah <span className="text-rose-500">*</span></label>
-                    <input
-                      type="text"
-                      value={schoolCode}
-                      onChange={(e) => setSchoolCode(e.target.value)}
-                      className="text-xs bg-white border border-slate-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500 font-medium uppercase"
-                      placeholder="Contoh: NEE4099"
+                  <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full font-bold text-[9px] uppercase tracking-wide flex items-center gap-1 select-none">
+                    <Check className="w-2.5 h-2.5" /> Auto-Detected
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 items-stretch select-none">
+                  {/* Left Column: School Logo Upload Drag-Drop box */}
+                  <div className="flex flex-col items-center justify-center w-full sm:w-1/3 min-h-[120px] bg-white border border-slate-200 hover:border-slate-350 rounded-xl p-3 relative cursor-pointer text-center group transition"
+                       onClick={() => logoInputRef.current?.click()}
+                       onDragEnter={handleLogoDrag}
+                       onDragOver={handleLogoDrag}
+                       onDragLeave={handleLogoDrag}
+                       onDrop={handleLogoDrop}
+                  >
+                    <input 
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoChange}
+                      className="hidden"
                     />
+                    
+                    {schoolLogo ? (
+                      <div className="flex flex-col items-center justify-center h-full w-full relative">
+                        <img 
+                          id="school-modal-logo-preview"
+                          src={schoolLogo} 
+                          alt="Logo Preview" 
+                          className="w-16 h-16 object-contain rounded-lg p-1 bg-slate-50 border border-slate-200"
+                        />
+                        <button 
+                          id="btn-remove-logo"
+                          onClick={(e) => removeLogo(e)}
+                          className="absolute -top-1 -right-1 bg-red-100 hover:bg-red-200 text-red-600 hover:text-red-700 p-1 rounded-full shadow-md transition"
+                          title="Hapus Logo"
+                        >
+                          <AlertCircle className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="text-[9px] text-slate-400 font-medium mt-1.5 block group-hover:text-indigo-600 transition">Klik untuk tukar</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full py-1">
+                        <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:bg-indigo-50 transition-all">
+                          <Upload className="w-5 h-5" />
+                        </div>
+                        <p className="text-[10px] font-semibold text-slate-600 mt-2">Muat Naik Logo</p>
+                        <p className="text-[8px] text-slate-400 mt-0.5">Seret & lepas imej di sini</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right Column: Editable School Metadata Input fields */}
+                  <div className="flex-1 grid grid-cols-1 gap-3.5 select-text text-left">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between">
+                        <label className="font-bold text-slate-600 text-[11px] flex items-center gap-1 mb-0.5">
+                          <School className="w-3.5 h-3.5 text-slate-450" /> Nama Sekolah <span className="text-rose-500">*</span>
+                        </label>
+                        <span className="text-[9px] text-slate-400 italic">Dikesan dari baris atas fail</span>
+                      </div>
+                      <input
+                        type="text"
+                        value={schoolName}
+                        onChange={(e) => setSchoolName(e.target.value)}
+                        className="text-xs bg-white border border-slate-300 p-2.5 rounded-xl hover:border-slate-450 focus:border-indigo-505 focus:ring-1 focus:ring-indigo-505 focus:outline-none transition font-semibold text-slate-800 shadow-3xs"
+                        placeholder="Contoh: SMK Rantau"
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between">
+                        <label className="font-bold text-slate-600 text-[11px] flex items-center gap-1 mb-0.5">
+                          <Database className="w-3.5 h-3.5 text-slate-450" /> Kod Sekolah (e.g. Kod SPBT) <span className="text-rose-500">*</span>
+                        </label>
+                        <span className="text-[9px] text-slate-400 italic">Dikesan automatik</span>
+                      </div>
+                      <input
+                        type="text"
+                        value={schoolCode}
+                        onChange={(e) => setSchoolCode(e.target.value.toUpperCase())}
+                        className="text-xs bg-white border border-slate-300 p-2.5 rounded-xl hover:border-slate-450 focus:border-indigo-505 focus:ring-1 focus:ring-indigo-505 focus:outline-none transition font-semibold text-slate-800 uppercase tracking-widest shadow-3xs"
+                        placeholder="Contoh: NEE4099"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info status feedback block */}
+                <div className="p-3 bg-indigo-50/50 border border-indigo-100/50 rounded-lg text-[10px] text-indigo-805 leading-relaxed flex items-start gap-2 select-text text-left">
+                  <Check className="w-3.5 h-3.5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <span className="font-bold font-sans">Analisis Imbasan:</span> Nama sekolah dikesan sebagai <strong className="text-indigo-900">"{schoolName}"</strong> dengan kod <strong className="text-indigo-900">"{schoolCode}"</strong> dari fail <strong className="text-slate-700">"{fileName}"</strong>. Sila semak profil di atas sebelum bersetuju dengan pemetaan lajur.
                   </div>
                 </div>
               </div>
