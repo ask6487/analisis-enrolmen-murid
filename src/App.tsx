@@ -689,7 +689,7 @@ export default function App() {
 
         {/* TAB 2: CLASSES TABLE BY FORM (SMK RANTAU DETAILED LAYOUT) */}
         {(activeTab === "forms" || window.matchMedia("print").matches) && (
-          <section className="space-y-6">
+          <section className="space-y-6 print:break-before-page">
             <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-sm print:font-bold print:border-l-2">
               Bahagian 2: Analisis Enrolmen Mengikut Kelas & Tingkatan
             </h3>
@@ -838,7 +838,7 @@ export default function App() {
             </div>
 
             {/* Form Descriptions (Average size, Largest and Smallest classes) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:mt-10">
               {summary.formDetails.map(f => (
                 <div key={f.name} className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between print:border-slate-300 print:break-inside-avoid">
                   <div>
