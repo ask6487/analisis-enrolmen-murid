@@ -689,7 +689,7 @@ export default function App() {
 
         {/* TAB 2: CLASSES TABLE BY FORM (SMK RANTAU DETAILED LAYOUT) */}
         {(activeTab === "forms" || window.matchMedia("print").matches) && (
-          <section className="space-y-6 print:break-before-page">
+          <section className="space-y-6">
             <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-sm print:font-bold print:border-l-2">
               Bahagian 2: Analisis Enrolmen Mengikut Kelas & Tingkatan
             </h3>
@@ -836,30 +836,68 @@ export default function App() {
                 </table>
               </div>
             </div>
+          </section>
+        )}
+
+        {/* TAB 2B / PAGE 2 PRINT CONTAINER: Repeated Header & Form Stats Cards */}
+        {(activeTab === "forms" || window.matchMedia("print").matches) && (
+          <section className="space-y-4 print:break-before-page pt-4">
+            {/* PRINT BRANDING BANNER (Only visible in print media at the top of Page 2) */}
+            <div className="hidden print:block border-b border-slate-500 pb-2 mb-4">
+              <div className="flex flex-row items-center gap-4">
+                {schoolLogo && (
+                  <img 
+                    id="school-print-logo-2"
+                    src={schoolLogo} 
+                    alt="Logo Sekolah" 
+                    className="w-11 h-11 object-contain flex-shrink-0"
+                    referrerPolicy="no-referrer"
+                  />
+                )}
+                <div className="flex-1 text-center">
+                  <h1 className="text-sm font-black tracking-wide text-black uppercase">
+                    LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
+                  </h1>
+                  <p className="text-[9px] text-slate-800 font-bold uppercase mt-0.5">
+                    SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
+                  </p>
+                </div>
+                {schoolLogo && <div className="w-11" /> /* balances the logo offset to keep title perfectly centered */}
+              </div>
+              
+              <div className="flex justify-between items-center text-[8px] text-slate-600 mt-2 border-t border-slate-200/60 pt-1.5 px-0.5">
+                <span>Fail Data Rujukan: <strong className="text-slate-800">{fileName}</strong></span>
+                <span>Tarikh Ekstraksi: <strong className="text-slate-800">{fileDate}</strong></span>
+              </div>
+            </div>
+
+            <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-sm print:font-bold print:border-l-2 mb-2">
+              Rumusan Eksekutif Aliran Tingkatan
+            </h3>
 
             {/* Form Descriptions (Average size, Largest and Smallest classes) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2">
               {summary.formDetails.map(f => (
-                <div key={f.name} className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between print:border-slate-300 print:break-inside-avoid">
+                <div key={f.name} className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between print:border-slate-300 print:break-inside-avoid print:p-2.5 print:rounded-xl">
                   <div>
-                    <h4 className="text-xs font-bold text-slate-800 border-l-3 border-teal-500 pl-2 uppercase">
+                    <h4 className="text-xs font-bold text-slate-800 border-l-3 border-teal-500 pl-2 uppercase print:text-[10px] print:border-l-2 print:pl-1.5">
                       Statistik Tingkatan {f.name}
                     </h4>
-                    <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
+                    <div className="grid grid-cols-2 gap-3 mt-3 text-xs print:gap-1.5 print:mt-1.5 print:text-[9px]">
                       <div>
-                        <span className="text-slate-400 block font-medium">Bilangan Kelas</span>
+                        <span className="text-slate-400 block font-medium print:text-[8px]">Bilangan Kelas</span>
                         <strong className="text-slate-805">{f.classCount} kelas</strong>
                       </div>
                       <div>
-                        <span className="text-slate-400 block font-medium">Kekuatan Aliran</span>
+                        <span className="text-slate-400 block font-medium print:text-[8px]">Kekuatan Aliran</span>
                         <strong className="text-slate-805">{f.studentCount} murid</strong>
                       </div>
                       <div>
-                        <span className="text-slate-400 block font-medium">Purata Kelas</span>
+                        <span className="text-slate-400 block font-medium print:text-[8px]">Purata Kelas</span>
                         <strong className="text-slate-805">{f.avgPerClass} murid / kelas</strong>
                       </div>
                       <div>
-                        <span className="text-slate-400 block font-medium">Kompasi Gender</span>
+                        <span className="text-slate-400 block font-medium print:text-[8px]">Kompasi Gender</span>
                         <strong className="text-slate-700 capitalize">
                           {summary.genderStats.ratio} 
                         </strong>
@@ -867,13 +905,13 @@ export default function App() {
                     </div>
                   </div>
                   
-                  <div className="mt-4 pt-3.5 border-t border-slate-103 grid grid-cols-2 gap-2 text-[11px] text-slate-505">
+                  <div className="mt-4 pt-3.5 border-t border-slate-103 grid grid-cols-2 gap-2 text-[11px] text-slate-505 print:mt-2 print:pt-1.5 print:text-[8px]">
                     <div>
-                      <span className="block font-medium">Kelas Terbesar:</span>
+                      <span className="block font-medium print:text-[7.5px]">Kelas Terbesar:</span>
                       <span className="font-semibold text-rose-700 break-all">{f.maxClass.name} ({f.maxClass.count} orang)</span>
                     </div>
                     <div>
-                      <span className="block font-medium">Kelas Terkecil:</span>
+                      <span className="block font-medium print:text-[7.5px]">Kelas Terkecil:</span>
                       <span className="font-semibold text-emerald-700 break-all">{f.minClass.name} ({f.minClass.count} orang)</span>
                     </div>
                   </div>
