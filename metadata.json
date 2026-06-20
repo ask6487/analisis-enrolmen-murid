@@ -1,0 +1,8 @@
+{
+  "name": "Analisis Enrolmen Sekolah",
+  "description": "Sistem analisis data enrolmen murid sekolah dengan penjanaan laporan, carta interaktif, dan rumusan eksekutif pintar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
