@@ -578,28 +578,31 @@ export default function App() {
         </div>
 
         {/* PRINT BRANDING BANNER (Only visible in print media) */}
-        <div className="hidden print:flex flex-row items-center justify-center gap-6 border-b-2 border-slate-800 pb-4 mb-6">
-          {schoolLogo && (
-            <img 
-              id="school-print-logo"
-              src={schoolLogo} 
-              alt="Logo Sekolah" 
-              className="w-16 h-16 object-contain"
-              referrerPolicy="no-referrer"
-            />
-          )}
-          <div className="text-center flex-1">
-            <h1 className="text-2xl font-bold tracking-wide text-black uppercase">
-              LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
-            </h1>
-            <p className="text-sm text-slate-800 font-medium mt-1 uppercase">
-              SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
-            </p>
-            <div className="flex justify-center gap-8 text-xs text-slate-700 mt-2">
-              <span>Fail Data Rujukan: <strong>{fileName}</strong></span>
-              <span>Tarikh Ekstraksi: <strong>{fileDate}</strong></span>
-              <span>Jumlah Enrolmen: <strong>{summary.totalOverall} orang</strong></span>
+        <div className="hidden print:block border-b border-slate-500 pb-2 mb-4">
+          <div className="flex flex-row items-center gap-4">
+            {schoolLogo && (
+              <img 
+                id="school-print-logo"
+                src={schoolLogo} 
+                alt="Logo Sekolah" 
+                className="w-11 h-11 object-contain flex-shrink-0"
+                referrerPolicy="no-referrer"
+              />
+            )}
+            <div className="flex-1 text-center">
+              <h1 className="text-sm font-black tracking-wide text-black uppercase">
+                LAPORAN ANALISIS ENROLMEN DAN STATISTIK DEMOGRAFI MURID
+              </h1>
+              <p className="text-[9px] text-slate-800 font-bold uppercase mt-0.5">
+                SEKOLAH: {schoolName} • KOD SEKOLAH: {schoolCode} • KEMENTERIAN PENDIDIKAN MALAYSIA
+              </p>
             </div>
+            {schoolLogo && <div className="w-11" /> /* balances the logo offset to keep title perfectly centered */}
+          </div>
+          
+          <div className="flex justify-between items-center text-[8px] text-slate-600 mt-2 border-t border-slate-200/60 pt-1.5 px-0.5">
+            <span>Fail Data Rujukan: <strong className="text-slate-800">{fileName}</strong></span>
+            <span>Tarikh Ekstraksi: <strong className="text-slate-800">{fileDate}</strong></span>
           </div>
         </div>
 
