@@ -690,7 +690,7 @@ export default function App() {
         {/* TAB 2: CLASSES TABLE BY FORM (SMK RANTAU DETAILED LAYOUT) */}
         {(activeTab === "forms" || window.matchMedia("print").matches) && (
           <section className="space-y-6">
-            <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-lg">
+            <h3 className="text-md font-bold text-slate-800 border-l-4 border-teal-600 pl-3 uppercase print:text-sm print:font-bold print:border-l-2">
               Bahagian 2: Analisis Enrolmen Mengikut Kelas & Tingkatan
             </h3>
             
@@ -701,7 +701,6 @@ export default function App() {
                     {/* Double Tier Header */}
                     <tr className="bg-slate-800 text-white font-bold border-b border-slate-700">
                       <th rowSpan={2} className="py-3 px-2 border-r border-slate-700 text-center w-10">Bil</th>
-                      <th rowSpan={2} className="py-3 px-2 border-r border-slate-700 text-center">Ting.</th>
                       <th rowSpan={2} className="py-3 px-2 border-r border-slate-700 text-center">Kelas</th>
                       <th rowSpan={2} className="py-3 px-2 border-r border-slate-700 text-left">Nama Guru Kelas</th>
                       <th colSpan={2} className="py-1 px-1 border-r border-slate-700 text-center bg-teal-800">Melayu</th>
@@ -744,7 +743,6 @@ export default function App() {
                           rowsToRender.push(
                             <tr key={`${form.tingkatan}-${c.kelas}`} className="hover:bg-slate-50 border-b border-slate-100 transition">
                               <td className="py-2 px-1 border-r border-slate-100 font-mono text-slate-500">{overallIndex++}</td>
-                              <td className="py-2 px-1 border-r border-slate-100 font-medium text-slate-900">{form.tingkatan}</td>
                               <td className="py-2 px-1 border-r border-slate-100 font-semibold text-slate-800 text-left pl-2">{c.kelas}</td>
                               <td className="py-2 px-2 border-r border-slate-105 text-left text-slate-600 uppercase font-mono max-w-[200px] truncate" title={c.guruKelas}>
                                 {c.guruKelas}
@@ -776,7 +774,7 @@ export default function App() {
                         // Append the Subtotal block for this Tingkatan
                         rowsToRender.push(
                           <tr key={`SUBTOTAL-${form.tingkatan}`} className="bg-slate-150 font-bold border-b-2 border-slate-205 text-slate-800">
-                            <td colSpan={4} className="py-2.5 px-3 border-r border-slate-200 text-left bg-slate-200/80 tracking-wider">
+                            <td colSpan={3} className="py-2.5 px-3 border-r border-slate-200 text-left bg-slate-200/80 tracking-wider">
                               JUMLAH TINGKATAN {form.tingkatan.toUpperCase()}
                             </td>
                             {/* Melayu */}
@@ -806,7 +804,7 @@ export default function App() {
                       // Finally the grand total block
                       rowsToRender.push(
                         <tr key="GRAND-TOTAL" className="bg-slate-900 text-white font-extrabold text-xs">
-                          <td colSpan={4} className="py-3 px-3 uppercase text-left tracking-widest pl-4">
+                          <td colSpan={3} className="py-3 px-3 uppercase text-left tracking-widest pl-4">
                             Jumlah Keseluruhan Sekolah
                           </td>
                           {/* Melayu */}
