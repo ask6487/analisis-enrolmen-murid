@@ -416,7 +416,7 @@ export default function App() {
               className="px-3.5 py-2 text-xs font-semibold text-slate-705 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition cursor-pointer flex items-center gap-1.5 shadow-xs"
             >
               <Database className="w-3.5 h-3.5 text-teal-600" />
-              Muat Data SMK Rantau
+              Muat Data Contoh
             </button>
             
             <button
